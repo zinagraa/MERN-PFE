@@ -1,25 +1,25 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import dotenv from 'dotenv';
-import authRoutes from './routes/authRoutes.js';  // Importer le fichier de routes
+import express from "express";
+import authRoutes from "./routes/authRoutes.js";
+import dotenv from "dotenv";
+import mongoose from "mongoose";
 
+// Charger les variables d'environnement
 dotenv.config();
 
 const app = express();
 
-// Middleware pour traiter les requêtes JSON
+// Middleware pour parser le JSON
 app.use(express.json());
 
 // Connexion à MongoDB
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('MongoDB connecté'))
-  .catch((err) => console.log(err));
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("Connected to MongoDB"))
+  .catch(err => console.log("MongoDB connection error: ", err));
 
-// Utilisation des routes d'authentification
-app.use("/api/auth", authRoutes); // Définir le chemin pour les routes d'authentification
+// Définir les routes
+app.use("/api/auth", authRoutes);
 
-// Démarrage du serveur
-app.listen(process.env.PORT, () => {
-  console.log(`Serveur démarré sur le port ${process.env.PORT}`);
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
-
