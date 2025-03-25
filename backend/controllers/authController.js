@@ -3,12 +3,12 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 class UserController {
-  constructor() {
+  constructor() { // ay fnct bch tzidha rak bch tamllha this. wesmha w tzidha kima haka 
     this.register = this.register.bind(this);
     this.login = this.login.bind(this);
   }
 
-  async register(req, res) {
+  async register(req, res) { // dima f kol bideyet fonct taml async esmmha w haka nafs il methode deja f kol fnct tt3awd 
     try {
       const { username, email, password } = req.body;
 
